@@ -54,9 +54,10 @@ namespace Agapea_MVC_NetCore.Models
             this.sImagen = sImagen;
             this.iNumeroDePaginas = iNumeroDePaginas;
         }
-            #endregion
-            #region "...Métodos publicos de clase..."
+        #endregion
+        #region "...Métodos publicos de clase..."
 
+        #endregion
         #endregion
         #endregion
     }
