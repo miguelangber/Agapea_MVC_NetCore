@@ -5,18 +5,12 @@ using System.Threading.Tasks;
 
 namespace Agapea_MVC_NetCore.Models
 {
-    public class Cliente
+    public class Tienda
     {
         #region "...propiedades de la clase..."
 
-        private string sUsuario;
-        private string sEmail;
-        private string sContrasena;
-        private string sNombre;
-        private string sApellidos;
-        private string sDireccion;
-        private int iIentificador;
-
+        Dictionary<int, Libro> dicLibros = new Dictionary<int, Libro>();
+        Dictionary<int, Cliente> dicClientes = new Dictionary<int, Cliente>();
 
         #endregion
         #region "...métodos de la clase..."
