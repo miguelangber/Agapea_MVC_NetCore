@@ -9,8 +9,8 @@ namespace Agapea_MVC_NetCore.Models
     {
         #region "...propiedades de la clase..."
 
-        Dictionary<int, Libro> dicLibros = new Dictionary<int, Libro>();
-        Dictionary<int, Cliente> dicClientes = new Dictionary<int, Cliente>();
+        Dictionary<int, Libro> dictLibros { get; set; } = new Dictionary<int, Libro>();
+        Dictionary<int, Cliente> dictClientes { get; set; } = new Dictionary<int, Cliente>();
 
         #endregion
         #region "...métodos de la clase..."

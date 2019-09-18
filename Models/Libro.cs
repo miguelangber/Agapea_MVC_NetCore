@@ -9,16 +9,54 @@ namespace Agapea_MVC_NetCore.Models
     {
         #region "...propiedades de la clase..."
 
-        private string sTitulo;
-        private string sAutor;
-        private string sEditorial;
-        private int iIsbn;
-        private int sPrecio;
+        public String sTitulo { get; set; }
+        public String sAutor { get; set; }
+        public String sEditorial { get; set; }
+        public String sImagen { get; set; }
+        public int iNumeroDePaginas { get; set; }
+        public int iIsbn { get; set; }
+        public int iIsbn13 { get; set; }
+        public DateTime dFechaDeEdicion { get; set; }
+        public int sPrecio { get; set; }
+        public int MyProperty { get; set; }
 
 
         #endregion
+
         #region "...métodos de la clase..."
-        #region "...Constructores..."
+        #region "...Métodos privados..."
+        #endregion
+
+        #region "...Métodos públicos..."
+        #region "...Contrusctores..."
+        public Libro()
+        {
+
+        }
+        public Libro(String sTitulo, 
+                     String sAutor, 
+                     String sEditorial , 
+                     int iIsbn, 
+                     int iIsbn13, 
+                     int iPrecio, 
+                     DateTime dFechaDeEdicion, 
+                     String sImagen, 
+                     int iNumeroDePaginas
+                     )
+        {
+            this.sTitulo = sTitulo;
+            this.sAutor = sAutor;
+            this.sEditorial = sEditorial;
+            this.iIsbn = iIsbn;
+            this.iIsbn13 = iIsbn13;
+            this.sPrecio = iPrecio;
+            this.dFechaDeEdicion = dFechaDeEdicion;
+            this.sImagen = sImagen;
+            this.iNumeroDePaginas = iNumeroDePaginas;
+        }
+            #endregion
+            #region "...Métodos publicos de clase..."
+
         #endregion
         #endregion
     }
