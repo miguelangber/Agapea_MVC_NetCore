@@ -1,0 +1,21 @@
+﻿@using System.Collections
+@model Dictionary<String, Libro>
+@{
+    ViewData["Title"] = "LibrosDe";
+}
+
+<div class="container">
+    @foreach (Libro unlibro in Model.Values)
+    {
+        <div class="row">
+            <div class="col">
+                <a href="#"> @unlibro.sTitulo</a>
+                <label>@unlibro.sAutor</label>
+                <label>@unlibro.iNumeroDePaginas.ToString()</label>
+                <label><strong>@unlibro.sPrecio.ToString() €</strong></label>
+                <button class="btn btn-primary">Comprar</button>
+            </div>
+        </div>
+    }
+
+</div>
