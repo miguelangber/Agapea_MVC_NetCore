@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Agapea_MVC_NetCore.Interfaces;
+using Agapea_MVC_NetCore.Models;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +28,10 @@ namespace Agapea_MVC_NetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // ..... aqui se efinen la inyeccion de dependencias.....
+            services.AddSingleton<IDBAccess, SQLServerDBAccess>();
+
+            //-------------------------------------------------------
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

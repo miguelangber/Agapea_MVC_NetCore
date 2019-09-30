@@ -1,1 +1,23 @@
-﻿<span>Hola Mundo!</span>
+﻿@using System.Collections
+@model Dictionary<String, Libro>
+@{
+    ViewData["Title"] = "LibrosDe";
+}
+
+<div class="container">
+    @foreach (Libro unlibro in Model.Values)
+    {
+        <div class="row">
+            <div class="col">
+                <a href="#"> @unlibro.titulo</a>
+                <label>@unlibro.autor</label>
+                <label>@unlibro.numeroDePaginas.ToString()</label>
+                <label><strong>@unlibro.precio.ToString() €</strong></label>
+                <img src="../../wwwroot/images/@unlibro.imagen.ToString()" alt=" imagen de prueba" />
+                <!--<img src="../../wwwroot/images/logo_cipi_esc.jpg" alt="imagen de prueba" />-->
+                <button class="btn btn-primary">Comprar</button>
+            </div>
+        </div>
+    }
+
+</div>
