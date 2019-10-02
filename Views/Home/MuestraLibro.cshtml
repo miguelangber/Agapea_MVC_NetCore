@@ -1,0 +1,59 @@
+﻿@model Agapea_MVC_NetCore.Models.Libro
+@{
+    ViewData["Title"] = "Detalles de un libro";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4 bg-primary" style="text-align: center;">
+            <div class="row">
+                <div class="col">
+                    <img width="75%" src="https://www.mujerhoy.com/noticias/201909/27/media/cortadas/portada-mujerhoy-kN7H-U902565424662DD-476x714@MujerHoy.jpg" alt="imagen">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span>Recomendar</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 bg-secondary">
+            <div class="row">
+                <div class="col">
+                    <h1>@Model.titulo.ToString()</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col">
+                            DESCRIPCIÓN: @Model.descripcion.ToString()
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            ahora solo @Model.precio.ToString() €
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            ISBN: @Model.isbn.ToString()
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            @Model.autor.ToString() lo escribió
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            @Model.editorial.ToString() lo editó
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    envio en 24 horas
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

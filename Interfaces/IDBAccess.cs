@@ -10,5 +10,7 @@ namespace Agapea_MVC_NetCore.Interfaces
     {
         List<String> DevolverMaterias();
         Dictionary<String, Libro> DevolverLibros(int id);
+
+        Libro DevolverLibroPorISBN(String ISBN);
     }
 }

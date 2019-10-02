@@ -4,20 +4,38 @@
     ViewData["Title"] = "LibrosDe";
 }
 
-<div class="container">
-    @foreach (Libro unlibro in Model.Values)
-    {
-        <div class="row">
-            <div class="col">
-                <a href="#"> @unlibro.titulo</a>
-                <label>@unlibro.autor</label>
-                <label>@unlibro.numeroDePaginas.ToString()</label>
-                <label><strong>@unlibro.precio.ToString() €</strong></label>
-                <img src="../../wwwroot/images/@unlibro.imagen.ToString()" alt=" imagen de prueba" />
-                <!--<img src="../../wwwroot/images/logo_cipi_esc.jpg" alt="imagen de prueba" />-->
-                <button class="btn btn-primary">Comprar</button>
-            </div>
-        </div>
-    }
+    <div class="container" style="width:100%; border:solid 1px">
 
-</div>
+
+        <h4>LIBROS MÁS VENDIDOS</h4>
+        <div class="container-fluid" style="display: flex;flex-wrap: wrap;">
+            @foreach (Libro unlibro in Model.Values)
+            {
+                <div style="margin:auto;margin-top:20px; width:250px ;border:1px solid">
+                    <div style="float:left;">
+                        <img style="float:left; max-height:230px; width:150px" src="~/images/inicio-9788498381955.jpg" alt="imagen"><br />
+                        <button style="width:150px" class="btn btn-primary">Comprar <strong>59.95 €</strong></button>
+                    </div>
+                    <div style="text-align:center">
+                        <div><a asp-controller="Home" 
+                                asp-action="MuestraLibro" 
+                                asp-all-route-data="@(new Dictionary<String, String>(){ {"id", @unlibro.isbn } })">
+                             @unlibro.titulo </a></div>
+                        <div>@unlibro.autor</div>
+                        <div>@unlibro.numeroDePaginas.ToString() páginas</div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>

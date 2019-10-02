@@ -1,0 +1,28 @@
+﻿@using Agapea_MVC_NetCore.Models
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Esto es pruebas</h2>
+            
+            @foreach (String clave in ViewData.Keys)
+            {
+                @if (clave.Equals("libro")) {
+                    <label>Titulo: @((ViewData[clave] as Libro).titulo)</label>
+                    <label>autor: @((ViewData[clave] as Libro).autor)</label>
+                }else{
+                    <label><strong>@clave</strong></label>
+                    <label>@ViewData[clave]</label>
+                }
+            }
+            
+            @*
+            <label>Titulo: @(ViewBag.libro.titulo)</label>
+            <label>autor: @(ViewBag.libro.autor)</label>
+
+            <label><strong>promocion</strong></label>
+            <label>@ViewBag.promocion</label>
+            *@
+        </div>
+    </div>
+</div>
+
