@@ -113,11 +113,39 @@ namespace Agapea_MVC_NetCore.Models
 
         }
 
-        public List<string> DevolverMaterias() 
+        public List<string> DevolverMaterias(int id = 0)
         {
-        
-            // manejando objetos de SQLClient, hacer select contra tabla Materias de DB-SqlServer
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AgapeaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "select * from dbo.Materias where IdSubMateria = @Id";
+                __micomando.Parameters.Add("@Id", SqlDbType.Int);
+                __micomando.Parameters["@Id"].Value = id;
+
+                SqlDataReader __resultado = __micomando.ExecuteReader();
+
+                List<string> miList = new List<string>();
+                /*hacer este bucle con LINQ*/
+
+                while (__resultado.Read())
+                {
+                    miList.Add(((IDataRecord)__resultado)[2].ToString());
+                }
+
+                __miconexion.Close();
+                return miList;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
     }

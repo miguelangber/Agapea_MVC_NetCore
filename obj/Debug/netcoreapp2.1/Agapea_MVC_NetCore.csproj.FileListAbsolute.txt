@@ -28,3 +28,5 @@ C:\Users\34693\source\repos\Agapea_MVC_NetCore\bin\Debug\netcoreapp2.1\appsettin
 C:\Users\34693\source\repos\Agapea_MVC_NetCore\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
 C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Home\MuestraLibro.cshtml.g.cs
 C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Home\Prueba.cshtml.g.cs
+C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Shared\__MiniLibro.cshtml.g.cs
+C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_FichaLibro.cshtml.g.cs

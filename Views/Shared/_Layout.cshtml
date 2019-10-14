@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -52,9 +54,11 @@
     </div>
 
         -->
+    
+
     <header>
         <div class="container-fluid">
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col text-right">
                     <a href="http://" target="_blank" rel="Mi Cuenta">
                         <img src="~/images/icon-micuenta.png" alt="Mi Cuenta">
@@ -77,23 +81,78 @@
         </div>
     </header>
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="col-3 btn-group-vertical">
-                <a class="btn btn-primary">BOTON</a>
-                <a class="btn btn-primary">BOTON</a>
-                <a class="btn btn-primary">BOTON</a>
-                <a class="btn btn-primary">BOTON</a>
-                <a class="btn btn-primary">BOTON</a>
-                <a class="btn btn-primary">BOTON</a>
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-3 list-group">
+                @foreach (String materia in ViewData["materias"] as List<String>)
+                {
+                    <a href="#" class="list-group-item list-group-item-action">@materia</a>
+                }
+
             </div>
-            <div class="col-9" style="float:right">
+
+
+            <div class="col-9 input-group p-3">
+                <div class="row-fluid">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="border border-secondary input-group-text" id="searchBy">Buscar por título</span>
+                            <button type="button" class="btn border border-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <span class="dropdown-item">Título</span>
+                                <div role="separator" class="dropdown-divider"></div>
+                                <span class="dropdown-item">Autor</span>
+                                <div role="separator" class="dropdown-divider"></div>
+                                <span class="dropdown-item">Editorial</span>
+                                <div role="separator" class="dropdown-divider"></div>
+                                <span class="dropdown-item">ISBN</span>
+                            </div>
+                            <input type="text" class="form-control col-8" id="cajaDeTexto" aria-label="Text input with segmented dropdown button">
+                            <a class="btn btn-primary my-2 my-sm-0">Search</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--
+                <div class="col p-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="w-75 input-group">
+                                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn bg-primary btn-outline-secondary">
+                                        Buscar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioTitleSearch" value="radioTitleSearch">
+                                <label class="form-check-label" for="radioTitleSearch">Buscar por título</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioAuthorSearch" value="radioAuthorSearch">
+                                <label class="form-check-label" for="radioAuthorSearch">Buscar por Autor</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioEditorSearch" value="radioEditorSearch">
+                                <label class="form-check-label" for="radioEditorSearch">Buscar por Editorial</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    -->
                 @RenderBody()
             </div>
+
         </div>
-    </div>
-
-
+    </section>
 
     <footer>
         <div class="container text-center" style="font-size: 14px">
@@ -106,6 +165,36 @@
             <a href="">Política de Privacidad y Cookies</a>
         </div>
     </footer>
+
+    <script type="text/javascript">
+        var searchByItem = Array.from(document.getElementsByClassName("dropdown-item"))
+        var searchHandler = {
+            searchByTitulo: (ev) => {
+                document.getElementById("searchBy").textContent = "Buscar por título";
+            },
+            searchByAutor: (ev) => {
+                document.getElementById("searchBy").textContent = "Buscar por autor";
+
+            },
+            searchByEditorial: (ev) => {
+                document.getElementById("searchBy").textContent = "Buscar por editorial";
+
+            },
+            searchByIsbn: (ev) => {
+                document.getElementById("searchBy").textContent = "Buscar por ISBN";
+
+            },
+
+        }
+
+        searchByItem[0].addEventListener("click", searchHandler.searchByTitulo);
+        searchByItem[1].addEventListener("click", searchHandler.searchByAutor);
+        searchByItem[2].addEventListener("click", searchHandler.searchByEditorial);
+        searchByItem[3].addEventListener("click", searchHandler.searchByIsbn);
+    </script>
+
+
+
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

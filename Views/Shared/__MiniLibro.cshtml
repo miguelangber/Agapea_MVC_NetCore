@@ -1,0 +1,18 @@
+﻿@model Agapea_MVC_NetCore.Models.Libro;
+<div style="margin:auto;margin-top:20px; width:250px ;border:1px solid">
+    <div style="float:left;">
+        <img style="float:left; max-height:230px; width:150px" src="~/images/inicio-9788498381955.jpg" alt="imagen"><br />
+        <button style="width:150px" class="btn btn-primary">Comprar <strong>59.95 €</strong></button>
+    </div>
+    <div style="text-align:center">
+        <div>
+            <a asp-controller="Home"
+               asp-action="MuestraLibro"
+               asp-all-route-data="@(new Dictionary<String, String>(){ {"id", @Model.isbn } })">
+                @Model.titulo
+            </a>
+        </div>
+        <div>@Model.autor</div>
+        <div>@Model.numeroDePaginas.ToString() páginas</div>
+    </div>
+</div>

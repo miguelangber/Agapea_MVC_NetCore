@@ -39,17 +39,26 @@ namespace Agapea_MVC_NetCore.Controllers
             return View();
             */
         }
-
         #region "metodos de accion del controlador"
+
+        
+
+        
+
+  
+
+
         public IActionResult Index(int id)
         {
-            if (id == null) id = 0;
+            ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
             return View(this.__accesoDB.DevolverLibros(id));
         }
         public IActionResult MuestraLibro (String id)
         {
             //recuperar de la BD el objeto libro con ese id... y pasarselo a la vista
             //Libro LibroEncontrado = from unlibro in List
+
+            ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
             Libro _libro = __accesoDB.DevolverLibroPorISBN(id);
             return View("MuestraLibro",_libro);
         }

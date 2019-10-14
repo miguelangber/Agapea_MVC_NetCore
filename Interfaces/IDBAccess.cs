@@ -8,7 +8,18 @@ namespace Agapea_MVC_NetCore.Interfaces
 {
     public interface IDBAccess
     {
-        List<String> DevolverMaterias();
+
+
+
+
+        List<String> DevolverMaterias(int id);
+
+
+
+
+
+
+
         Dictionary<String, Libro> DevolverLibros(int id);
 
         Libro DevolverLibroPorISBN(String ISBN);

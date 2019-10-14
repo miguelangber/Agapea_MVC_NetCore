@@ -57,9 +57,9 @@ a:hover{
     text-decoration: underline;
 }
 
-
-
-
-h5{
-    margin-top: 40px;
+.icon-search {
+    background-position: 0 0 !important;
+    height: 22px;
+    margin-top: 4px;
+    width: 26px;
 }
