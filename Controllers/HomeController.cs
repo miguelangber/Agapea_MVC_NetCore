@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data.Sql;
 using System.Data;
 using Agapea_MVC_NetCore.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace Agapea_MVC_NetCore.Controllers
 {
@@ -26,9 +27,9 @@ namespace Agapea_MVC_NetCore.Controllers
         public IActionResult Prueba()
         {
             
-            ViewData["fecha"] = DateTime.Now;
-            ViewData["libro"] = new Libro() { titulo="vamos ya", autor="yo mismo"};
-            ViewData["promocion"] = "rebajas de navidad";
+            //ViewData["fecha"] = DateTime.Now;
+            //ViewData["libro"] = new Libro() { titulo="vamos ya", autor="yo mismo"};
+            //ViewData["promocion"] = "rebajas de navidad";
             return View();
             
             /*
@@ -39,26 +40,54 @@ namespace Agapea_MVC_NetCore.Controllers
             return View();
             */
         }
+
+
+
         #region "metodos de accion del controlador"
 
+
+
+        public IActionResult Buscar()
+        {
+            String opcion = this.HttpContext.Request.Query["opcion"].ToString();
+            String valor = this.HttpContext.Request.Query["valor"].ToString();
+            return View("Index", this.__accesoDB.DevolverLibros(opcion, valor));
+        }
+
+
+        public IActionResult Index()
+        {
+            int id = System.Convert.ToInt16(RouteData.Values["id"]);
+            //ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
+
+            IQueryCollection parametros = HttpContext.Request.Query;
+            if (parametros.Count != 0)
+            {
+                String materia = parametros["materia"].ToString();
+                return View(this.__accesoDB.DevolverLibros(materia));
+
+            }
+            else
+            {
+                return View(this.__accesoDB.DevolverLibros(id));
+            }
+        }
         
 
-        
-
-  
-
-
+        /*
         public IActionResult Index(int id)
         {
-            ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
+            //ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
             return View(this.__accesoDB.DevolverLibros(id));
         }
+        */
+
         public IActionResult MuestraLibro (String id)
         {
             //recuperar de la BD el objeto libro con ese id... y pasarselo a la vista
             //Libro LibroEncontrado = from unlibro in List
 
-            ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
+            //ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
             Libro _libro = __accesoDB.DevolverLibroPorISBN(id);
             return View("MuestraLibro",_libro);
         }

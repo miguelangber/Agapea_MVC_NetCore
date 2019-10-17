@@ -23,8 +23,13 @@ using Agapea_MVC_NetCore.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\34693\source\repos\Agapea_MVC_NetCore\Views\_ViewImports.cshtml"
+using Agapea_MVC_NetCore.ViewComponents;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"145de5fe8d08726e5ef543f18a106f9130ca8ad3", @"/Views/Home/Prueba.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"84ad6de2dbc8554ddbf4273f09c337a242a65795", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a7a9b7bfb072538d1281a5492d319743a7368431", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Prueba : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

@@ -23,8 +23,13 @@ using Agapea_MVC_NetCore.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\34693\source\repos\Agapea_MVC_NetCore\Views\_ViewImports.cshtml"
+using Agapea_MVC_NetCore.ViewComponents;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"eaf47a7fbf5e47965ea0d0f1ce868cc9ba9633e3", @"/Views/Shared/__MiniLibro.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"84ad6de2dbc8554ddbf4273f09c337a242a65795", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a7a9b7bfb072538d1281a5492d319743a7368431", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared___MiniLibro : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<Agapea_MVC_NetCore.Models.Libro>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("style", new global::Microsoft.AspNetCore.Html.HtmlString("float:left; max-height:230px; width:150px"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -59,7 +64,7 @@ using Agapea_MVC_NetCore.Models;
             WriteLiteral("<div style=\"margin:auto;margin-top:20px; width:250px ;border:1px solid\">\r\n    <div style=\"float:left;\">\r\n        ");
             EndContext();
             BeginContext(154, 108, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "9ca05eb45dff48bb840b8b49d260a033", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "cb23e4a9037e401e8ab36c674dc63649", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -79,7 +84,7 @@ using Agapea_MVC_NetCore.Models;
             WriteLiteral("<br />\r\n        <button style=\"width:150px\" class=\"btn btn-primary\">Comprar <strong>59.95 €</strong></button>\r\n    </div>\r\n    <div style=\"text-align:center\">\r\n        <div>\r\n            ");
             EndContext();
             BeginContext(449, 213, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "85f1bc8aa2d646868c59f2877a7d74a4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "637044c3e8dd4073989904430911f074", async() => {
                 BeginContext(613, 18, true);
                 WriteLiteral("\r\n                ");
                 EndContext();

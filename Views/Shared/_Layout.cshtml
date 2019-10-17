@@ -21,39 +21,6 @@
     </environment>
 </head>
 <body>
-    <!--
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Agapea_MVC_NetCore</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <partial name="_CookieConsentPartial" />
-
-    <div class="container body-content">
-
-        <hr />
-        <footer>
-            <p>&copy; 2019 - Agapea_MVC_NetCore</p>
-        </footer>
-    </div>
-
-        -->
     
 
     <header>
@@ -83,6 +50,8 @@
 
     <section class="container-fluid">
         <div class="row">
+            @await Component.InvokeAsync(nameof(ListarMaterias))
+            @*
             <div class="col-3 list-group">
                 @foreach (String materia in ViewData["materias"] as List<String>)
                 {
@@ -90,64 +59,27 @@
                 }
 
             </div>
-
+            *@
 
             <div class="col-9 input-group p-3">
                 <div class="row-fluid">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="border border-secondary input-group-text" id="searchBy">Buscar por título</span>
+                            <span class="border border-secondary input-group-text" style="width:110px;" id="searchBy">Buscar por título</span>
                             <button type="button" class="btn border border-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu">
-                                <span class="dropdown-item">Título</span>
-                                <div role="separator" class="dropdown-divider"></div>
-                                <span class="dropdown-item">Autor</span>
-                                <div role="separator" class="dropdown-divider"></div>
-                                <span class="dropdown-item">Editorial</span>
-                                <div role="separator" class="dropdown-divider"></div>
-                                <span class="dropdown-item">ISBN</span>
+                                <span class="dropdown-item border-bottom p-3">Título</span>
+                                <span class="dropdown-item border-bottom p-3">Autor</span>
+                                <span class="dropdown-item border-bottom p-3">Editorial</span>
+                                <span class="dropdown-item border-bottom p-3">ISBN</span>
                             </div>
-                            <input type="text" class="form-control col-8" id="cajaDeTexto" aria-label="Text input with segmented dropdown button">
-                            <a class="btn btn-primary my-2 my-sm-0">Search</a>
+                            <input type="text" id="textInput" class="form-control col-8" id="cajaDeTexto" aria-label="Text input with segmented dropdown button">
+                            <a class="btn btn-primary my-2 my-sm-0" id="search">Search</a>
                         </div>
                     </div>
                 </div>
-
-
-                <!--
-                <div class="col p-3">
-                    <div class="row">
-                        <div class="col">
-                            <div class="w-75 input-group">
-                                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
-                                <div class="input-group-append">
-                                    <button type="button" class="btn bg-primary btn-outline-secondary">
-                                        Buscar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioTitleSearch" value="radioTitleSearch">
-                                <label class="form-check-label" for="radioTitleSearch">Buscar por título</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioAuthorSearch" value="radioAuthorSearch">
-                                <label class="form-check-label" for="radioAuthorSearch">Buscar por Autor</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioEditorSearch" value="radioEditorSearch">
-                                <label class="form-check-label" for="radioEditorSearch">Buscar por Editorial</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    -->
                 @RenderBody()
             </div>
 
@@ -166,32 +98,7 @@
         </div>
     </footer>
 
-    <script type="text/javascript">
-        var searchByItem = Array.from(document.getElementsByClassName("dropdown-item"))
-        var searchHandler = {
-            searchByTitulo: (ev) => {
-                document.getElementById("searchBy").textContent = "Buscar por título";
-            },
-            searchByAutor: (ev) => {
-                document.getElementById("searchBy").textContent = "Buscar por autor";
-
-            },
-            searchByEditorial: (ev) => {
-                document.getElementById("searchBy").textContent = "Buscar por editorial";
-
-            },
-            searchByIsbn: (ev) => {
-                document.getElementById("searchBy").textContent = "Buscar por ISBN";
-
-            },
-
-        }
-
-        searchByItem[0].addEventListener("click", searchHandler.searchByTitulo);
-        searchByItem[1].addEventListener("click", searchHandler.searchByAutor);
-        searchByItem[2].addEventListener("click", searchHandler.searchByEditorial);
-        searchByItem[3].addEventListener("click", searchHandler.searchByIsbn);
-    </script>
+    <script type="text/javascript" src="~/js/searcherScript.js"></script>
 
 
 

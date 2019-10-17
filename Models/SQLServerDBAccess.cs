@@ -55,7 +55,7 @@ namespace Agapea_MVC_NetCore.Models
             return libro;
         }
 
-    public Dictionary<string, Libro> DevolverLibros(int id=0)
+        public Dictionary<string, Libro> DevolverLibros(int id)
         {
             // manejando objetos de SQLClient, hacer select contra tabla Libros de DB-SqlServer
 
@@ -81,12 +81,12 @@ namespace Agapea_MVC_NetCore.Models
                 // nos recorremos cursor para crearnos los libros
                 Dictionary<String, Libro> __libros = new Dictionary<string, Libro>();
                 /*hacer este bucle con LINQ*/
-                
+
                 while (__resultado.Read())
                 {
                     Libro __filalibro = new Libro();
-                    __filalibro.isbn =((IDataRecord)__resultado)[0].ToString();
-                    __filalibro.isbn13 =((IDataRecord)__resultado)[1].ToString();
+                    __filalibro.isbn = ((IDataRecord)__resultado)[0].ToString();
+                    __filalibro.isbn13 = ((IDataRecord)__resultado)[1].ToString();
                     __filalibro.titulo = ((IDataRecord)__resultado)[2].ToString();
                     __filalibro.editorial = ((IDataRecord)__resultado)[3].ToString();
                     __filalibro.autor = ((IDataRecord)__resultado)[4].ToString();
@@ -98,7 +98,7 @@ namespace Agapea_MVC_NetCore.Models
                     // ...
                     __libros.Add(Convert.ToString(__filalibro.isbn), __filalibro);
                 }
-                
+
 
                 __miconexion.Close();
                 return __libros;
@@ -113,7 +113,116 @@ namespace Agapea_MVC_NetCore.Models
 
         }
 
-        public List<string> DevolverMaterias(int id = 0)
+        public Dictionary<string, Libro> DevolverLibros(string materia)
+        {
+
+            try
+            {
+
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AgapeaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "SELECT * FROM dbo.Libros where IdMateria = (select IdMateria from dbo.Materias where NombreMateria like '%;' + @Materia)";
+                __micomando.Parameters.Add("@Materia", SqlDbType.NVarChar);
+                __micomando.Parameters["@Materia"].Value = materia;
+
+                SqlDataReader __resultado = __micomando.ExecuteReader();
+
+                // nos recorremos cursor para crearnos los libros
+                Dictionary<String, Libro> __libros = new Dictionary<string, Libro>();
+                /*hacer este bucle con LINQ*/
+
+                while (__resultado.Read())
+                {
+                    Libro __filalibro = new Libro();
+                    __filalibro.isbn = ((IDataRecord)__resultado)[0].ToString();
+                    __filalibro.isbn13 = ((IDataRecord)__resultado)[1].ToString();
+                    __filalibro.titulo = ((IDataRecord)__resultado)[2].ToString();
+                    __filalibro.editorial = ((IDataRecord)__resultado)[3].ToString();
+                    __filalibro.autor = ((IDataRecord)__resultado)[4].ToString();
+                    __filalibro.numeroDePaginas = System.Convert.ToInt32(((IDataRecord)__resultado)[5].ToString());
+                    __filalibro.precio = Convert.ToDecimal(((IDataRecord)__resultado)[6].ToString());
+                    __filalibro.imagen = ((IDataRecord)__resultado)[7].ToString();
+                    __filalibro.descripcion = ((IDataRecord)__resultado)[8].ToString();
+                    __filalibro.idMateria = System.Convert.ToInt32(((IDataRecord)__resultado)[9].ToString());
+                    // ...
+                    __libros.Add(Convert.ToString(__filalibro.isbn), __filalibro);
+                }
+
+
+                __miconexion.Close();
+                return __libros;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+
+        }
+
+        public Dictionary<string, Libro> DevolverLibros(string opcion, string valor)
+        {// manjenado objetos de SQLClient,  hacer SELECT contra
+            // tabla Libros de BD-SqlServer
+
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AgapeaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+
+                if (opcion=="ISBN")
+                {
+                    __micomando.CommandText = "SELECT * FROM dbo.Libros WHERE " + opcion + "=@Isbn";
+                    __micomando.Parameters.Add("@Isbn", SqlDbType.NChar);
+                    __micomando.Parameters["@Isbn"].Value = valor;
+                } else
+                {
+                    __micomando.CommandText = "SELECT * FROM dbo.Libros WHERE " + opcion + " LIKE '%' + @Valor + '%'";
+                    __micomando.Parameters.Add("@Valor", SqlDbType.NVarChar);
+                    __micomando.Parameters["@Valor"].Value = valor;
+                }
+
+
+
+                IEnumerable<KeyValuePair<String, Libro>> __libros = from fila in __micomando.ExecuteReader().Cast<IDataRecord>()
+                                                                    let isbn = fila[0].ToString()
+                                                                    let libro = new Libro()
+                                                                    {
+                                                                        isbn = fila[0].ToString(),
+                                                                        isbn13 = fila[1].ToString(),
+                                                                        titulo = fila[2].ToString(),
+                                                                        editorial = fila[3].ToString(),
+                                                                        autor = fila[4].ToString(),
+                                                                        numeroDePaginas = System.Convert.ToInt16(fila[5]),
+                                                                        precio = System.Convert.ToDecimal(fila[6]),
+                                                                        descripcion = fila[8].ToString(),
+                                                                        idMateria = System.Convert.ToInt16(fila[9])
+                                                                    }
+                                                                    select new KeyValuePair<String, Libro>(isbn, libro);
+
+                Dictionary<String, Libro> __librosADevolver = __libros.ToDictionary(par => par.Key, par => par.Value);
+                __miconexion.Close();
+
+                return __librosADevolver;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+
+        /*public List<string> DevolverMaterias(int id = 0)
         {
             try
             {
@@ -131,7 +240,7 @@ namespace Agapea_MVC_NetCore.Models
                 SqlDataReader __resultado = __micomando.ExecuteReader();
 
                 List<string> miList = new List<string>();
-                /*hacer este bucle con LINQ*/
+                //hacer este bucle con LINQ
 
                 while (__resultado.Read())
                 {
@@ -147,6 +256,53 @@ namespace Agapea_MVC_NetCore.Models
                 throw new Exception(e.Message);
             }
         }
+        */
 
+
+        public List<String> DevolverMaterias(int id)
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AgapeaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "select * from dbo.Materias where IdMateriaPadre = @Id";
+                __micomando.Parameters.Add("@Id", SqlDbType.Int);
+                __micomando.Parameters["@Id"].Value = id;
+
+                
+                // sin LINQ
+                SqlDataReader __resultado = __micomando.ExecuteReader();
+
+                List<String> miList = new List<String>();
+
+                while (__resultado.Read())
+                {
+                    String valor = ((IDataRecord)__resultado)[0].ToString() + ";" + ((IDataRecord)__resultado)[2].ToString();
+                    miList.Add(valor);
+                }
+
+                
+                // con LINQ
+                /*
+                List<String> miList = (from unafila in __micomando.ExecuteReader().Cast<IDataRecord>()
+                                              let nombreMateria = ((IDataRecord)unafila)[2].ToString()
+                                              select nombreMateria).ToList<String>();
+                */
+
+                __miconexion.Close();
+                return miList;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
     }
+    
 }

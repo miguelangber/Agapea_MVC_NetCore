@@ -1,0 +1,14 @@
+﻿@*
+    como modelo recive una lista de String con los nombres de cada materia troncal
+*@
+@model List<String>
+<div class="col-2 list-group">
+    @foreach (String unaMateria in Model) {
+        <a asp-action="Index" 
+           asp-controller="Home" 
+           asp-all-route-data="@(new Dictionary<String, String>() { { "materia",unaMateria.Split(";")[2].ToString() } })" 
+           class="list-group-item list-group-item-action">
+            @unaMateria.Split(";")[1].ToString()
+        </a>
+    }
+</div>

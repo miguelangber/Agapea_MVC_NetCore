@@ -1,0 +1,1 @@
+﻿select Nombre from dbo.Materias where IdSubMateria = 0
