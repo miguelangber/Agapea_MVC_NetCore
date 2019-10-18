@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Agapea_MVC_NetCore.Interfaces;
 using Agapea_MVC_NetCore.Models;
 
+using Agapea_MVC_NetCore.Infraestructura; // restricciones segmentos rutas
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -65,6 +68,20 @@ namespace Agapea_MVC_NetCore
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "busqueda",   //nombre de ruta 1er parametro
+                    template: "{controller=Home}/{action=Buscar}/{opcion}/{valor}",   //patron ruta 2º parametro
+                    new { opcion= "Titulo",valor="*"},    //objeto anonimo con valores por defecto 3er parametro
+                    new RouteValueDictionary() { 
+                                        { "opcion", new OpcionesMateriaRouteConstraint()}//@"^(Titulo|ISBN|Autor|Editorial)$" },
+                                        //{ "valor", @"^[A-Za-z][0-9]\\s+$"} 
+                         }     //objeto de restricciones de formato 4º parametro
+                               //es una colecion del tipo RouteValueDictionary , diccionario clave-valor, la clave es cada
+                               //segmento y el valor es la restriccion sebre cada segmento
+                               /* new {opcion= @"^(Titulo|ISBN|Autor|Editorial)$"}, 
+                                * valor=@"^[A-Za-z][0-9]\\s+$"
+                                */
+                    );
             });
         }
     }

@@ -64,7 +64,7 @@ using Agapea_MVC_NetCore.ViewComponents;
             WriteLiteral("<div style=\"margin:auto;margin-top:20px; width:250px ;border:1px solid\">\r\n    <div style=\"float:left;\">\r\n        ");
             EndContext();
             BeginContext(154, 108, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "cb23e4a9037e401e8ab36c674dc63649", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "b263442692a34611ad7c985ad76a7f8d", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -84,7 +84,7 @@ using Agapea_MVC_NetCore.ViewComponents;
             WriteLiteral("<br />\r\n        <button style=\"width:150px\" class=\"btn btn-primary\">Comprar <strong>59.95 €</strong></button>\r\n    </div>\r\n    <div style=\"text-align:center\">\r\n        <div>\r\n            ");
             EndContext();
             BeginContext(449, 213, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "637044c3e8dd4073989904430911f074", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7de983571a9a43e49ef125f1dd228768", async() => {
                 BeginContext(613, 18, true);
                 WriteLiteral("\r\n                ");
                 EndContext();

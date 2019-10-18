@@ -47,12 +47,6 @@ namespace Agapea_MVC_NetCore.Controllers
 
 
 
-        public IActionResult Buscar()
-        {
-            String opcion = this.HttpContext.Request.Query["opcion"].ToString();
-            String valor = this.HttpContext.Request.Query["valor"].ToString();
-            return View("Index", this.__accesoDB.DevolverLibros(opcion, valor));
-        }
 
 
         public IActionResult Index()
@@ -72,15 +66,6 @@ namespace Agapea_MVC_NetCore.Controllers
                 return View(this.__accesoDB.DevolverLibros(id));
             }
         }
-        
-
-        /*
-        public IActionResult Index(int id)
-        {
-            //ViewData["materias"] = this.__accesoDB.DevolverMaterias(0);
-            return View(this.__accesoDB.DevolverLibros(id));
-        }
-        */
 
         public IActionResult MuestraLibro (String id)
         {
@@ -91,6 +76,31 @@ namespace Agapea_MVC_NetCore.Controllers
             Libro _libro = __accesoDB.DevolverLibroPorISBN(id);
             return View("MuestraLibro",_libro);
         }
+
+
+        public IActionResult Buscar(/*String opcion, String valor */)
+        {
+            /*  //si paso valores por queryString sin tener ruta definida
+                String opcion = this.HttpContext.Request.Query["opcion"].ToString();
+                String valor = this.HttpContext.Request.Query["valor"].ToString();
+            */
+
+            //paso valores por segmentos en rta defnida... 
+            String opcion = RouteData.Values["opcion"].ToString();
+            String valor = RouteData.Values["valor"].ToString();
+            return View("Index", this.__accesoDB.DevolverLibros(opcion, valor));
+
+
+        }
+
+        public IActionResult Carrito() 
+        {
+            return View();
+        }
+
+
+
+
         #endregion
     }
 }

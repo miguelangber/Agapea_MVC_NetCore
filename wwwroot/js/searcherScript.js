@@ -19,12 +19,14 @@ var searchHandler = {
     searcher: (ev) => {
         var searchBy = document.getElementById("searchBy").textContent.substring(11);
         var ruta = "";
-        if (searchBy == "título") {
-            ruta = window.location.protocol + "//" + window.location.host + "/Home/Buscar/?opcion=Titulo&valor=" + encodeURIComponent(textBox.value);
+        if (searchBy == "Título") {
+            //ruta = window.location.protocol + "//" + window.location.host + "/Home/Buscar/?opcion=Titulo&valor=" + encodeURIComponent(textBox.value);
+            ruta = window.location.protocol + "//" + window.location.host + "/Home/Buscar/Titulo/" + encodeURIComponent(textBox.value);
             window.location.href = ruta;
             console.log("ir a la ruta: " + ruta)
         } else {
-            ruta = window.location.protocol + "//" + window.location.host + "/Home/Buscar/?opcion=" + searchBy + "&valor=" + encodeURIComponent(textBox.value);
+            //ruta = window.location.protocol + "//" + window.location.host + "/Home/Buscar/?opcion=" + searchBy + "&valor=" + encodeURIComponent(textBox.value);
+            ruta = window.location.protocol + "//" + window.location.host + "/Home/Buscar/" + searchBy +"/" + encodeURIComponent(textBox.value);
             window.location.href = ruta;
             console.log("ir a la ruta: " + ruta)
         }
