@@ -1,0 +1,27 @@
+﻿@model Dictionary<Libro,int>
+
+
+@{
+    ViewData["Title"] = "Carrito";
+    Layout = "_Layout_Cliente";
+}
+
+<h2>Carrito</h2>
+
+
+<div class="container-fluid" style="display: flex;flex-wrap: wrap;">
+    @foreach (KeyValuePair<Libro, int> entry in Model)
+    {
+        <div class="row">
+            <div class="col">
+                <span>nombre: @entry.Key.titulo</span>
+            </div>
+            <div class="col">
+                <span>autor: @entry.Key.autor</span>
+            </div>
+            <div class="col">
+                <span>cantidad: @entry.Value.ToString()</span>
+            </div>
+        </div>
+     }
+</div>

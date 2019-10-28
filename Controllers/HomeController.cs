@@ -85,6 +85,7 @@ namespace Agapea_MVC_NetCore.Controllers
                 String valor = this.HttpContext.Request.Query["valor"].ToString();
             */
 
+
             //paso valores por segmentos en rta defnida... 
             String opcion = RouteData.Values["opcion"].ToString();
             String valor = RouteData.Values["valor"].ToString();
@@ -92,12 +93,6 @@ namespace Agapea_MVC_NetCore.Controllers
 
 
         }
-
-        public IActionResult Carrito() 
-        {
-            return View();
-        }
-
 
 
 

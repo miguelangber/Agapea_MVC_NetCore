@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Agapea_MVC_NetCore.Models
 {
-    public class Libro
+    public class Libro : IComparable<Libro>
     {
         #region "...propiedades de la clase..."
         private String _isbn;
@@ -66,6 +66,11 @@ namespace Agapea_MVC_NetCore.Models
             this.fechaDeEdicion = dFechaDeEdicion;
             this.imagen = sImagen;
             this.numeroDePaginas = iNumeroDePaginas;
+        }
+
+        public int CompareTo(Libro other)
+        {
+            return this.isbn.CompareTo(other.isbn);
         }
         #endregion
         #region "...Métodos publicos de clase..."

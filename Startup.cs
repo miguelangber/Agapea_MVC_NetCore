@@ -29,10 +29,12 @@ namespace Agapea_MVC_NetCore
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             // ..... aqui se efinen la inyeccion de dependencias.....
             services.AddSingleton<IDBAccess, SQLServerDBAccess>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //-------------------------------------------------------
             services.Configure<CookiePolicyOptions>(options =>
@@ -42,8 +44,14 @@ namespace Agapea_MVC_NetCore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            services.AddSession((SessionOptions options1) =>
+            {
+                options1.CookieHttpOnly = true;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +70,10 @@ namespace Agapea_MVC_NetCore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseSession();
+
+
 
             app.UseMvc(routes =>
             {
