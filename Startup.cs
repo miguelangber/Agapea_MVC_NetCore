@@ -34,23 +34,33 @@ namespace Agapea_MVC_NetCore
         {
             // ..... aqui se efinen la inyeccion de dependencias.....
             services.AddSingleton<IDBAccess, SQLServerDBAccess>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //-------------------------------------------------------
-            services.Configure<CookiePolicyOptions>(options =>
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+            /*services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            });*/
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 
-            services.AddSession((SessionOptions options1) =>
+            /*services.AddSession((SessionOptions options1) =>
             {
                 options1.CookieHttpOnly = true;
-            });
+            });*/
 
         }
 

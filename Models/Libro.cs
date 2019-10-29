@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Agapea_MVC_NetCore.Models
 {
-    public class Libro : IComparable<Libro>
+    public class Libro : IEquatable<Libro>
     {
         #region "...propiedades de la clase..."
         private String _isbn;
@@ -68,13 +68,31 @@ namespace Agapea_MVC_NetCore.Models
             this.numeroDePaginas = iNumeroDePaginas;
         }
 
-        public int CompareTo(Libro other)
-        {
-            return this.isbn.CompareTo(other.isbn);
-        }
         #endregion
         #region "...Métodos publicos de clase..."
+        public override int GetHashCode()
+        {
+            return isbn.GetHashCode();
+            /*
+                Esto esta mal, por lo que pone en la documentacion:
 
+                    'Si dos objetos de cadena son iguales, el método GetHashCode devuelve valores idénticos. 
+                     Sin embargo, no hay ningún valor de código hash único para cada valor de cadena único. 
+                     Cadenas diferentes pueden devolver el mismo código hash. (...)'
+
+                    '(...) Como resultado, los códigos hash nunca deben usarse fuera del dominio de aplicación 
+                     en el que se crearon, nunca deben usarse como campos de clave en una colección y nunca 
+                     deben persistir.'
+             */
+        }
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Libro);
+        }
+        public bool Equals(Libro other)
+        {
+            return other != null && other.isbn == this.isbn;
+        }
         #endregion
         #endregion
         #endregion

@@ -1,4 +1,5 @@
-﻿@model Dictionary<Libro,int>
+﻿@*@model List<Libro>*@
+@model Dictionary<Libro,int>
 
 
 @{
@@ -7,21 +8,57 @@
 }
 
 <h2>Carrito</h2>
-
-
+@*
 <div class="container-fluid" style="display: flex;flex-wrap: wrap;">
-    @foreach (KeyValuePair<Libro, int> entry in Model)
+    @foreach (Libro entry in Model)
     {
         <div class="row">
             <div class="col">
-                <span>nombre: @entry.Key.titulo</span>
+                <span>nombre: @entry.titulo</span>
             </div>
             <div class="col">
-                <span>autor: @entry.Key.autor</span>
+                <span>autor: @entry.autor</span>
             </div>
             <div class="col">
-                <span>cantidad: @entry.Value.ToString()</span>
+                <span>cantidad: @entry.precio</span>
             </div>
         </div>
-     }
+    }
 </div>
+*@
+
+    <div class="container-fluid">
+        @foreach (KeyValuePair<Libro, int> entry in Model)
+        {
+            <div class="row">
+                <div class="col">
+                    <span>nombre: @entry.Key.titulo</span>
+                </div>
+                <div class="col">
+                    <span>autor: @entry.Key.autor</span>
+                </div>
+                <div class="col">
+                    <span>cantidad: @entry.Value.ToString()</span>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <a asp-controller="Pedido"
+                               asp-action="addLibro"
+                               asp-all-route-data="@(new Dictionary<String, String>(){ {"id", @entry.Key.isbn } })"
+                               class="btn btn-primary">+</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a asp-controller="Pedido"
+                               asp-action="DropLibro"
+                               asp-all-route-data="@(new Dictionary<String, String>(){ {"id", @entry.Key.isbn } })"
+                               class="btn btn-primary">-</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         }
+    </div>
+

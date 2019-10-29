@@ -68,7 +68,7 @@ using Agapea_MVC_NetCore.ViewComponents;
             WriteLiteral("<div style=\"margin:auto;margin-top:20px; width:250px ;border:1px solid\">\r\n    <div style=\"float:left;\">\r\n        ");
             EndContext();
             BeginContext(154, 108, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "abf036853d254af6aaf8270f2c8ba232", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "dd463a7fbd974cb3a06c336d5232100a", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -88,7 +88,7 @@ using Agapea_MVC_NetCore.ViewComponents;
             WriteLiteral("<br />\r\n        ");
             EndContext();
             BeginContext(278, 246, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8d943b8d39cf47b18ea93f42b50b0a10", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bb6425cdc7d44292a484b910addf74d7", async() => {
                 BeginContext(488, 32, true);
                 WriteLiteral("Comprar <strong>59.95 €</strong>");
                 EndContext();
@@ -120,7 +120,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues = (new Diction
             WriteLiteral("\r\n    </div>\r\n    <div style=\"text-align:center\">\r\n        <div>\r\n            ");
             EndContext();
             BeginContext(602, 213, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "28a499b2b3ba44e48b30bc9d15a5712b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d73b0c4c7a29455e934c12856b8e5e19", async() => {
                 BeginContext(766, 18, true);
                 WriteLiteral("\r\n                ");
                 EndContext();

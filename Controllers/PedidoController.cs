@@ -14,52 +14,84 @@ namespace Agapea_MVC_NetCore.Controllers
     {
         private IDBAccess __accesoDB;
 
-        private IHttpContextAccessor __httpContext; // <---- se recibe la inyección por parte del DI
+        //private IHttpContextAccessor __httpContext; // <---- se recibe la inyección por parte del DI
 
-        public PedidoController(IHttpContextAccessor _httpContext, IDBAccess objetoAccesoDB)
+        public PedidoController(/*IHttpContextAccessor _httpContext,*/ IDBAccess objetoAccesoDB)
         {
-            this.__httpContext = _httpContext;
+            //this.__httpContext = _httpContext;
 
             this.__accesoDB = objetoAccesoDB;
         }
 
 
-
         public IActionResult AddLibro(String id)
         {
 
-            Dictionary<Libro, int> misLibros;
+            Dictionary<Libro, int> dicLibros = new Dictionary<Libro, int>();
+            List<Libro> listLibros;
             Libro libroNuevo = __accesoDB.DevolverLibroPorISBN(id);
-            String libros = __httpContext.HttpContext.Session.GetString("Libros");
+            String cookieLibros = HttpContext.Session.GetString("Libros");
 
-            Pedido _pedido;
-            if (libros==null)
+            if (cookieLibros == null)
             {
                 //no hay pedido
-                _pedido = new Pedido();
-                _pedido.libros = new Dictionary<Libro, int>();
-                _pedido.libros.Add(libroNuevo,1);
+                
+                dicLibros.Add(libroNuevo, 1);
+                listLibros = new List<Libro>(dicLibros.Keys);
 
-                this.__httpContext.HttpContext.Session.SetString("Libros",JsonConvert.SerializeObject(_pedido.libros));
+                HttpContext.Session.SetString("Libros", JsonConvert.SerializeObject(listLibros));
             }
             else
             {
 
-                misLibros = JsonConvert.DeserializeObject<Dictionary<Libro, int>>(libros);
+                listLibros = JsonConvert.DeserializeObject<List<Libro>>(cookieLibros);
+                listLibros.Add(libroNuevo);
 
-                bool _encontrado = false;
-                foreach (KeyValuePair<Libro,int> LibroGuardado in misLibros)
+                foreach (Libro libro in listLibros)
                 {
-                    if (LibroGuardado.Key == libroNuevo)
+                    if (dicLibros.ContainsKey(libro))
                     {
-                        _encontrado = true;
-                        misLibros.Add(libroNuevo,LibroGuardado.Value+1);
-                        break;
+                        dicLibros[libro] += 1;
+                    }
+                    else
+                    {
+                        dicLibros.Add(libro, 1);
+                    }
+                }
+
+                HttpContext.Session.SetString("Libros", JsonConvert.SerializeObject(listLibros));
+
+            }
+
+            return View("Carrito", dicLibros);
+        }
+
+        public IActionResult DropLibro(String id)
+        {
+            Dictionary<Libro, int> dicLibros = new Dictionary<Libro, int>();
+            List<Libro> listLibros;
+            Libro libroABorrar = __accesoDB.DevolverLibroPorISBN(id);
+            String cookieLibros = HttpContext.Session.GetString("Libros");
+
+            if (cookieLibros!=null)
+            {
+                listLibros = JsonConvert.DeserializeObject<List<Libro>>(cookieLibros);
+                listLibros.Remove(libroABorrar);
+
+                foreach (Libro libro in listLibros)
+                {
+                    if (dicLibros.ContainsKey(libro))
+                    {
+                        dicLibros[libro] += 1;
+                    }
+                    else
+                    {
+                        dicLibros.Add(libro, 1);
                     }
                 }
             }
 
-            return View("Carrito");
+            return View("Carrito",dicLibros);
         }
     }
 }
