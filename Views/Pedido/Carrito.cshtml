@@ -1,64 +1,66 @@
 ﻿@*@model List<Libro>*@
-@model Dictionary<Libro,int>
+@model Dictionary<Libro, int>
 
 
 @{
     ViewData["Title"] = "Carrito";
     Layout = "_Layout_Cliente";
 }
-
-<h2>Carrito</h2>
-@*
-<div class="container-fluid" style="display: flex;flex-wrap: wrap;">
-    @foreach (Libro entry in Model)
-    {
-        <div class="row">
-            <div class="col">
-                <span>nombre: @entry.titulo</span>
-            </div>
-            <div class="col">
-                <span>autor: @entry.autor</span>
-            </div>
-            <div class="col">
-                <span>cantidad: @entry.precio</span>
-            </div>
-        </div>
-    }
-</div>
-*@
-
-    <div class="container-fluid">
-        @foreach (KeyValuePair<Libro, int> entry in Model)
-        {
-            <div class="row">
-                <div class="col">
-                    <span>nombre: @entry.Key.titulo</span>
-                </div>
-                <div class="col">
-                    <span>autor: @entry.Key.autor</span>
-                </div>
-                <div class="col">
-                    <span>cantidad: @entry.Value.ToString()</span>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <div class="col">
-                            <a asp-controller="Pedido"
-                               asp-action="addLibro"
-                               asp-all-route-data="@(new Dictionary<String, String>(){ {"id", @entry.Key.isbn } })"
-                               class="btn btn-primary">+</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <a asp-controller="Pedido"
-                               asp-action="DropLibro"
-                               asp-all-route-data="@(new Dictionary<String, String>(){ {"id", @entry.Key.isbn } })"
-                               class="btn btn-primary">-</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         }
+<main class="container">
+    <div class="text-header">
+        <h1>Agapea <small>Tu Carrito de la compra :)</small></h1>
+        <p>
+            Nuestro amplio catálogo en stock facilita al cliente la ventaja de comprar libros con entrega
+            en 24 horas a través de las principales agencias de mensajerías urgente. Otras ventajas son los miles
+            de libros con gasto de envío gratis y urgente, la posibilidad de poder recoger tu pedido en tu librería
+            Agapea más cercana y la garantía de una compra de libros sencilla, rápida y segura. Toda la información
+            personal está protegida en todo momento y disponemos de los principales sistemas de pago seguro.
+        </p>
     </div>
 
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Libro</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio Unidad</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (KeyValuePair<Libro, int> entry in Model)
+            {
+                <tr id="cell_@entry.Key.isbn">
+                    <partial name="_MiniLibroCarrito" model="entry" />
+                </tr>
+            }
+        <tr class="thead-dark" id="t">
+            <th></th>
+            <th>TOTAL</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>@ViewBag.precioTotal €</th>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="button-wrapper">
+        <button type="button" class="btn btn-success btn-checkout">COMPRAR</button>
+        <a asp-controller="Home"
+           asp-action="Index"
+           asp-all-route-data="@(new Dictionary<String, String>(){ {"id", "0" } })"
+           class="btn btn-light btn-continous">CONTINAR COMPRANDO</a>
+    </div>
+    <small class="order-info">Tu pedido será entregado en un máximo de 24 horas.</small>
+</main>
+
+
+<script>
+    window.onload = function () {
+        var total = document.getElementById("t"); // aqui hay que poner el id de la fila
+        total.scrollIntoView();
+        };
+</script>

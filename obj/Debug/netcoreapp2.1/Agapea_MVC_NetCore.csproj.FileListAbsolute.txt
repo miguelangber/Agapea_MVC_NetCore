@@ -33,3 +33,4 @@ C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Vie
 C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\ListarMaterias\Default.cshtml.g.cs
 C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout_Cliente.cshtml.g.cs
 C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Pedido\Carrito.cshtml.g.cs
+C:\Users\34693\source\repos\Agapea_MVC_NetCore\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_MiniLibroCarrito.cshtml.g.cs
