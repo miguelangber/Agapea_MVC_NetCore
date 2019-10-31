@@ -59,8 +59,11 @@
 
 
 <script>
+
+    // cuando la pagina carga hace foco en el último elemento añadido o borrado
     window.onload = function () {
-        var total = document.getElementById("t"); // aqui hay que poner el id de la fila
-        total.scrollIntoView();
+        var isbn = window.location.pathname.split("/")[3];
+        var foco = document.getElementById("cell_"+isbn); // aqui hay que poner el id de la fila
+        foco.scrollIntoView();
         };
 </script>

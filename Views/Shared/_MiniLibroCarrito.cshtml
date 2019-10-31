@@ -4,8 +4,8 @@
 *@
     <td>
         <a asp-controller="Pedido"
-           asp-action="Drop"
-           asp-all-route-data="@(new Dictionary<String, String>(){ {"id", Model.Key.isbn } })"
+           asp-action="Carrito"
+           asp-all-route-data="@(new Dictionary<String, String>(){ {"id", Model.Key.isbn+"_drop" } })"
            class="btn btn-danger m-4">X</a>
     </td>
     <td><img height="100" src="~/images/imagenLibro.png" alt="Portada de @Model.Key.titulo" /></td>
@@ -16,15 +16,15 @@
     </td>
     <td>
         <a asp-controller="Pedido"
-           asp-action="Add"
-           asp-all-route-data="@(new Dictionary<String, String>(){ {"id", Model.Key.isbn } })"
+           asp-action="Carrito"
+           asp-all-route-data="@(new Dictionary<String, String>(){ {"id", Model.Key.isbn+"_add" } })"
            class="btn btn-primary">+</a>
 
         <span class="p-2">@Model.Value.ToString()</span>
 
         <a asp-controller="Pedido"
-           asp-action="Decrease"
-           asp-all-route-data="@(new Dictionary<String, String>(){ {"id", Model.Key.isbn } })"
+           asp-action="Carrito"
+           asp-all-route-data="@(new Dictionary<String, String>(){ {"id", Model.Key.isbn+"_dec"} })"
            class="btn btn-primary">-</a>
     </td>
     <td>@Model.Key.precio.ToString() €</td>

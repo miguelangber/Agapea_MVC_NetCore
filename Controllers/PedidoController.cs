@@ -23,106 +23,104 @@ namespace Agapea_MVC_NetCore.Controllers
             this.__accesoDB = objetoAccesoDB;
         }
 
+        #region Metodos de accion
 
-        public IActionResult Add(String id)
+        public IActionResult Carrito(String id)
         {
-            /*
-                si necesitara pasar algo por QueryString utilizaría:
-             String valor = HttpContext.Request.Query["_clave"].ToString;
-             */
+            try
+            {
+                //id contiene el isbn del libro ademas de la accion a realizar en el pedido
+                String isbn = id.Split("_")[0];
+                String accion = id.Split("_")[1].ToLower();
+
+                // aquí está la chicha, Se reciben las cookies, se cargan en una lista, se actualiza y se devuelve al contexto
+                List<Libro> listLibros = this.actualizarPedido(isbn, accion);
+
+                // aqui se carga la lista en un diccionario
+                Dictionary<Libro, int> dicLibro = this.cargarDiccionario(listLibros);
+
+                // variable para recibir en la view el precio total del pedido
+                ViewBag.precioTotal = calcularPrecio(listLibros);
+
+                // si la lista esta vacia se envia al usuario a la página inicial
+                if (listLibros.Count == 0)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View("Carrito", dicLibro);
+                }
+            }
+            catch (Exception e)
+            {
+                // si en algun momento salta una expción, no se carga nada y se envía al usuario a la página inicial
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
 
+        #endregion
+
+
+        #region Metodos privados
+
+        private List<Libro> actualizarPedido(String isbn, String accion)
+        {
             Dictionary<Libro, int> dicLibros = new Dictionary<Libro, int>();
             List<Libro> listLibros;
-            Libro libroNuevo = __accesoDB.DevolverLibroPorISBN(id);
+            Libro libro = __accesoDB.DevolverLibroPorISBN(isbn);
             String cookieLibros = HttpContext.Session.GetString("Libros");
 
             if (cookieLibros == null)
             {
-                //no hay pedido
-                
-                dicLibros.Add(libroNuevo, 1);
+
+                // aún no hay libros en las cookies
+                dicLibros.Add(libro, 1);
                 listLibros = new List<Libro>(dicLibros.Keys);
 
                 HttpContext.Session.SetString("Libros", JsonConvert.SerializeObject(listLibros));
+
             }
             else
             {
-
-                listLibros = JsonConvert.DeserializeObject<List<Libro>>(cookieLibros);
-                listLibros.Add(libroNuevo);
-
-                //cargar diccionario
-                dicLibros = this.cargarDiccionario(listLibros);
-
-                HttpContext.Session.SetString("Libros", JsonConvert.SerializeObject(listLibros));
-
-            }
-
-            ViewBag.precioTotal = calcularPrecio(listLibros);
-            return View("Carrito", dicLibros);
-        }
-
-        public IActionResult Decrease(String id)
-        {
-            Dictionary<Libro, int> dicLibros = new Dictionary<Libro, int>();
-            List<Libro> listLibros;
-            Libro libroABorrar = __accesoDB.DevolverLibroPorISBN(id);
-            String cookieLibros = HttpContext.Session.GetString("Libros");
-
-            if (cookieLibros!=null)
-            {
+                // ya hay libros en las cookies
                 listLibros = JsonConvert.DeserializeObject<List<Libro>>(cookieLibros);
 
-                listLibros.Reverse();
-                listLibros.Remove(libroABorrar);
-                listLibros.Reverse();
-
-                //cargar diccionario
-                dicLibros = this.cargarDiccionario(listLibros);
-
-                ViewBag.precioTotal = calcularPrecio(listLibros);
-                HttpContext.Session.SetString("Libros", JsonConvert.SerializeObject(listLibros));
-                if (listLibros.Count == 0)
+                switch (accion)
                 {
-                    return RedirectToAction("Index", "Home");
+                    case "add":
+
+                        listLibros.Add(libro);
+
+                        break;
+
+                    case "dec":
+
+                        // esto borra solo al ultimo de la lista, para no alterar el orden de los libros en el carrito
+                        listLibros.Reverse();
+                        listLibros.Remove(libro);
+                        listLibros.Reverse();
+
+                        break;
+
+                    case "drop":
+
+                        // hago un bucle por que no he encontrado otra forma de borrar de la lista todas las instancias de un libro
+                        while (listLibros.Remove(libro))
+                        {
+                            listLibros.Remove(libro);
+                        }
+
+                        break;
                 }
+                HttpContext.Session.SetString("Libros", JsonConvert.SerializeObject(listLibros));
             }
 
-            return View("Carrito",dicLibros);
+            return listLibros;
+
         }
 
-        public IActionResult Drop(String id)
-        {
-            Dictionary<Libro, int> dicLibros = new Dictionary<Libro, int>();
-            List<Libro> listLibros;
-            Libro libroABorrar = __accesoDB.DevolverLibroPorISBN(id);
-            String cookieLibros = HttpContext.Session.GetString("Libros");
-
-            if (cookieLibros != null)
-            {
-                listLibros = JsonConvert.DeserializeObject<List<Libro>>(cookieLibros);
-                
-                while (listLibros.Remove(libroABorrar))
-                {
-                    listLibros.Remove(libroABorrar);
-                }
-
-                //cargar diccionario
-                dicLibros = this.cargarDiccionario(listLibros);
-
-                ViewBag.precioTotal = calcularPrecio(listLibros);
-                HttpContext.Session.SetString("Libros", JsonConvert.SerializeObject(listLibros));
-                if (listLibros.Count == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return View("Carrito", dicLibros);
-        }
-
-
-        #region "--- Metodos privados ---"
 
         private Dictionary<Libro,int> cargarDiccionario(List<Libro> listLibros)
         {
